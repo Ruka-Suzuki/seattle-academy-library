@@ -46,7 +46,7 @@ public class BookUtil {
 
 	/**
 	 * 日付の形式が正しいかどうか
-	 * s
+	 * 
 	 * @param publishDate
 	 * @return
 	 */
@@ -58,12 +58,12 @@ public class BookUtil {
 
 			Date date = formatter.parse(publishDate);
 			String publishDate2 = formatter.format(date);
-			if (publishDate2.equals(publishDate))
-				;
-			return true;
-		} catch (Exception p) {
+			boolean result = publishDate2.equals(publishDate);
+			return result;
+		}catch (Exception p) {
 			p.printStackTrace();
 			return false;
+			
 		}
 	}
 
@@ -75,7 +75,7 @@ public class BookUtil {
 	 */
 	private static boolean isValidIsbn(String isbn) {
 		//TODO　ISBNが半角数字で10文字か13文字であればtrue（タスク４）
-		if (isbn.length()== 0|| isbn.length() == 10 || isbn.length() == 13 && isbn.matches("^[0-9]+$")) {
+		if (isbn.isEmpty() || (isbn.length() == 10 || isbn.length() == 13) && isbn.matches("^[0-9]+$")){
 			return true;
 		} else {
 			return false;
