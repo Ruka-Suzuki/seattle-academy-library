@@ -92,7 +92,7 @@ public class BookUtil {
 	private static boolean isEmptyBookInfo(BookDetailsInfo bookInfo) {
 		//TODO　タイトル、著者、出版社、出版日のどれか一つでもなかったらtrue（タスク４）
 		boolean results = bookInfo.getTitle().isEmpty() || bookInfo.getAuthor().isEmpty()
-				|| bookInfo.getAuthor().isEmpty() || bookInfo.getPublishDate().isEmpty();
+				|| bookInfo.getPublisher().isEmpty() || bookInfo.getPublishDate().isEmpty();
 		return results;
 	}
 }
