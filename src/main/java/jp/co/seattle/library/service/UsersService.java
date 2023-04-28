@@ -31,6 +31,7 @@ public class UsersService {
 		String sql = "INSERT INTO users (email, password,reg_date,upd_date) VALUES ('" + userInfo.getEmail() + "','"
 				+ userInfo.getPassword() + "',now(),now()" + ")";
 
+		
 		jdbcTemplate.update(sql);
 	}
 
