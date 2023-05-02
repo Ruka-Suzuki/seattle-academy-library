@@ -24,6 +24,12 @@ public class PasswordResetController {
 
 	@Autowired
 	private UsersService usersService;
+
+	@RequestMapping(value = "/passwordReset", method = RequestMethod.GET) // value＝actionで指定したパラメータ
+	public String passwordReset(Model model) {
+		return "passwordReset";
+	}
+
 	/**
 	 * 新規アカウント作成
 	 *
@@ -34,7 +40,7 @@ public class PasswordResetController {
 	 * @return ホーム画面に遷移
 	 */
 	@Transactional
-	@RequestMapping(value = "/passwordReset", method = RequestMethod.POST)
+	@RequestMapping(value = "/Reset", method = RequestMethod.POST)
 	public String passwordReset(Locale locale, @RequestParam("email") String email,
 			@RequestParam("password") String password, @RequestParam("passwordForCheck") String passwordForCheck,
 			Model model) {
@@ -48,16 +54,17 @@ public class PasswordResetController {
 				UserInfo userInfo = new UserInfo();
 				userInfo.setEmail(email);
 				userInfo.setPassword(password);
-				usersService.registUser(userInfo);
-				return "redirect:/login";
+				usersService.resetUserInfo(userInfo);
+				
 			} else {
-				model.addAttribute("errorMessage", "パスワードと確認用パスワードが一致しません。");
+				model.addAttribute("errorMessage", "パスワードが一致しません。");
 				return "passwordReset";
 			}
 		} else {
-			model.addAttribute("errorMessage", "パスワードは8桁以上の半角英数字で設定してください。");
+			model.addAttribute("errorMessage", "パスワードは8文字以上かつ半角英数字に設定してください。");
 			return "passwordReset";
 		}
+		return "redirect:/";
 	}
 
 }

@@ -26,6 +26,9 @@
     </header>
     <main>
         <h1>Home</h1>
+        <form action="search" method="get">
+            <input type="search" name="search" placeholder="キーワードを入力"> <input type="submit" name="submit" value="検索">
+        </form>
         <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a>
         <div class="content_body">
             <c:if test="${!empty resultMessage}">

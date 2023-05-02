@@ -53,4 +53,14 @@ public class UsersService {
 		}
 	}
 
+	/**
+	 * ユーザー情報更新
+	 * 
+	 * @param email    メールアドレス
+	 * @param password パスワード
+	 */
+	public void resetUserInfo(UserInfo userInfo) {
+			String sql = "UPDATE users SET password = ? WHERE email = ?;";
+			jdbcTemplate.update(sql,userInfo.getPassword(),userInfo.getEmail());
+	}
 }
