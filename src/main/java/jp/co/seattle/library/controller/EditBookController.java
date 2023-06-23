@@ -56,8 +56,8 @@ public class EditBookController {
 	public String updateBook(Locale locale, @RequestParam("bookId") int bookId, @RequestParam("title") String title,
 			@RequestParam("author") String author, @RequestParam("publisher") String publisher,
 			@RequestParam("publishDate") String publishDate, @RequestParam("isbn") String isbn,
-			@RequestParam("description") String description, @RequestParam("thumbnail") MultipartFile file,
-			Model model) {
+			@RequestParam("description") String description, @RequestParam("genre") String genre, @RequestParam("review") String review,@RequestParam("rate") String star,@RequestParam("thumbnail") MultipartFile file,
+			Model model) {System.out.println(star);
 		logger.info("Welcome updateBook! The client locale is {}.", locale);
 
 		// パラメータで受け取った書籍情報をDtoに格納する。
@@ -69,11 +69,14 @@ public class EditBookController {
 		bookInfo.setPublishDate(publishDate);
 		bookInfo.setIsbn(isbn);
 		bookInfo.setDescription(description);
-
+		bookInfo.setGenre(genre);
+		bookInfo.setReview(review);
+		bookInfo.setStar(star);
+ 
 		List<String> errorList = bookUtil.checkBookInfo(bookInfo);
 		// errorListに一つでもエラーメッセージが入っていたら登録しない
 		if (errorList.size() > 0) {
-			model.addAttribute("bookInfo", bookInfo);
+			model.addAttribute("bookInfo", bookInfo);  
 			model.addAttribute("errorList", errorList);
 			return "editBook";
 		}

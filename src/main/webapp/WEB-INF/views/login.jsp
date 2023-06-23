@@ -9,7 +9,7 @@
 <title>ログイン｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
 <link href="<c:url value="/resources/css/reset.css" />" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
-<link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/resources/css/account.css" />" rel="stylesheet" type="text/css">
 <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet" type="text/css">
 </head>
 <body>
