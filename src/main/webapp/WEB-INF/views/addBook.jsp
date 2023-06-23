@@ -101,6 +101,63 @@
                             <input type="text" name="description">
                         </c:if>
                     </div>
+                    <div>
+                        <span>レビュー</span><span class="care care1">任意</span>
+                        <c:if test="${!empty bookInfo}">
+                            <input type="text" name="review" value="${bookInfo.review}">
+                        </c:if>
+                        <c:if test="${empty bookInfo}">
+                            <input type="text" name="review">
+                        </c:if>
+                    </div>
+                    <div>
+                        <span>評価</span><span  class="care care1">任意</span>
+                        <div class="rate-form">
+                            <input class="rate-form" id="star5" type="radio" name="rate" value="★★★★★"> <label for="star5">★</label> <input id="star4" type="radio" name="rate" value="★★★★"> <label for="star4">★</label> <input id="star3" type="radio" name="rate" value="★★★"> <label for="star3">★</label> <input id="star2" type="radio" name="rate" value="★★"> <label for="star2">★</label> <input id="star1" type="radio" name="rate" value="★"> <label for="star1">★</label><input id="star0" type="radio" name="rate" value=""> <label for="star0"></label>
+                        </div>
+                         <script>
+                         document
+                           .addEventListener(
+                             "DOMContentLoaded",
+                             function() {
+                              // ページが読み込まれた時に実行される処理
+
+                              var rate = "${bookInfo.star}"; // サーバーサイドで取得した評価情報
+
+                              // 評価情報に基づいて星ボタンを操作
+                              if (rate === "★★★★★") {
+                               document
+                                 .getElementById("star5").checked = true;
+                              } else if (rate === "★★★★") {
+                               document
+                                 .getElementById("star4").checked = true;
+                              } else if (rate === "★★★") {
+                               document
+                                 .getElementById("star3").checked = true;
+                              } else if (rate === "★★") {
+                               document
+                                 .getElementById("star2").checked = true;
+                              } else if (rate === "★") {
+                               document
+                                 .getElementById("star1").checked = true;
+                              } else if (rate === "") {
+                               document
+                                 .getElementById("star0").checked = true;
+                              }
+                             });
+                        </script>
+                    </div>
+                    <div>
+                        <span>ジャンル</span><span class="care care1">任意</span> <select name="genre" value="${bookInfo.genre}">
+                            <option value="">選択してください</option>
+                            <option value="文芸">文芸</option>
+                            <option value="実用書">実用書</option>
+                            <option value="ビジネス書">ビジネス書</option>
+                            <option value="学習参考書">学習参考書</option>
+                            <option value="絵本・児童書">絵本児童書</option>
+                            <option value="コミック・雑誌">コミック・雑誌</option>
+                        </select>
+                    </div>
                     <input type="hidden" id="bookId" name="bookId" value="${bookInfo.bookId}">
                 </div>
             </div>

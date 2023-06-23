@@ -32,25 +32,79 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String transitionHome(Model model) {
-		//書籍の一覧情報を取得（タスク３）
+		//書籍の一覧情報を取得（タスク３） 
 		List<BookInfo> getedBookList = booksService.getBookList();
-		model.addAttribute("bookList",getedBookList);
-		if(getedBookList.isEmpty()) {
-			String message = "書籍データが0件です";
-			model.addAttribute("resultMessage",message);
+		model.addAttribute("bookList", getedBookList);
+		if (getedBookList.isEmpty()) {
+			model.addAttribute("resultMessage", "書籍データが0件です");
 		}
 		return "home";
-	} 
+	}
+
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String searchbooks (@RequestParam ("search")String searchword, Model model) {
+	public String searchbooks(@RequestParam("search") String searchword, Model model) {
 		//検索情報の取得
-		List<BookInfo> searchedBookList = booksService.searchBookList(searchword);
-		if(searchedBookList.isEmpty()) {
+		List<BookInfo> searchedBookList = booksService.searchBookList(searchword, searchword);
+		if (searchedBookList.isEmpty()) {
 			String message = "書籍データが0件です";
-			model.addAttribute("resultMessage",message);
-		}else {
-			model.addAttribute("bookList",searchedBookList);
+			model.addAttribute("resultMessage", message);
+		} else {
+			model.addAttribute("bookList", searchedBookList);
 		}
 		return "home";
-	} 
-} 
+	}
+
+	@RequestMapping(value = "/favorite", method = RequestMethod.GET)
+	public String favoritebooks(@RequestParam("bookId") int bookId, Model model) {
+		//お気に入りに追加
+
+		booksService.favoritebooks(bookId);
+		return "redirect:/home";
+	}
+
+	@RequestMapping(value = "/unfavorite", method = RequestMethod.GET)
+	public String unfavoritebooks(@RequestParam("bookId") int bookId, Model model) {
+		//お気に入りに追加
+
+		booksService.unfavoritebooks(bookId);
+		return "redirect:/home";
+
+	}
+
+	@RequestMapping(value = "/lend", method = RequestMethod.POST)
+	public String librarybooks(@RequestParam("bookId") int bookId, @RequestParam("value") String value, Model model) {
+		//お気に入りに追加
+
+		booksService.librarybooks(value, bookId);
+		return "redirect:/home";
+
+	}
+
+	@RequestMapping(value = "/turn", method = RequestMethod.GET)
+	public String turnbooks(@RequestParam("turn") String turnsBook, Model model) {
+		//検索情報の取得
+		if (turnsBook.equals("タイトル降順")) {
+			List<BookInfo> turnedBookList = booksService.untitleBookList();
+			model.addAttribute("bookList", turnedBookList);
+		}
+		if (turnsBook.equals("著者名昇順")) {
+			List<BookInfo> turnedBookList = booksService.authorBookList();
+			model.addAttribute("bookList", turnedBookList);
+		}
+		if (turnsBook.equals("著者名降順")) {
+			List<BookInfo> turnedBookList = booksService.unauthorBookList();
+			model.addAttribute("bookList", turnedBookList);
+		}
+		if (turnsBook.equals("出版年昇順")) {
+			List<BookInfo> turnedBookList = booksService.dateBookList();
+			model.addAttribute("bookList", turnedBookList);
+		}
+		if (turnsBook.equals("出版年降順")) {
+			List<BookInfo> turnedBookList = booksService.undateBookList();
+			model.addAttribute("bookList", turnedBookList);
+		}
+
+		return "home";
+	}
+
+}
